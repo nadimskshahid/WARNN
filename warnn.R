@@ -15,20 +15,11 @@ WaveletFittingnar<- function(ts,Waveletlevels,boundary,FastFlag,MaxARParam,NFore
   {
     ts <- NULL
     ts <- WS[,WVLevel]
-    # WaveletARMAFit <- forecast::auto.arima(x=as.ts(ts), d=NA, D=NA, max.p=MaxARParam, max.q=MaxMAParam,stationary=FALSE,
-    #                                        seasonal=FALSE,ic=c("aic"), allowdrift=FALSE, allowmean=TRUE,stepwise = TRUE)
-    # WaveletARIMAPredict <- WaveletARMAFit$fitted
-    # WaveletARIMAForecast <- forecast::forecast(WaveletARMAFit,h=NForecast)
-    # AllWaveletPrediction <- cbind(AllWaveletPrediction,WaveletARIMAPredict)
-    # AllWaveletForecast <- cbind(AllWaveletForecast,as.matrix(WaveletARIMAForecast$mean))
-    
     WaveletNARFit <- forecast::nnetar(y=as.ts(ts), p=MaxARParam, repeats = 500)
     WaveletNARPredict <- WaveletNARFit$fitted
     WaveletNARForecast <- forecast::forecast(WaveletNARFit, h=NForecast)
     AllWaveletPrediction <- cbind(AllWaveletPrediction,WaveletNARPredict)
-    AllWaveletForecast <- cbind(AllWaveletForecast,as.matrix(WaveletNARForecast$mean))
-    
-    
+    AllWaveletForecast <- cbind(AllWaveletForecast,as.matrix(WaveletNARForecast$mean))   
   }
   Finalforecast <- rowSums(AllWaveletForecast,na.rm = T)
   FinalPrediction <- rowSums(AllWaveletPrediction,na.rm = T)
