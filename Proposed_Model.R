@@ -34,21 +34,21 @@ grangertest(rain_series~cases_series, order=2)
 
 ####################### Proposed WARNN ###########################
 
-source("wnnar.R")
-fit_wnnar = WaveletFittingnar(ts(con_tr), Waveletlevels = floor(log(length(con_tr))), boundary = "periodic", 
+source("warnn.R")
+fit_warnn = WaveletFittingnar(ts(con_tr), Waveletlevels = floor(log(length(con_tr))), boundary = "periodic", 
             FastFlag = TRUE, MaxARParam = 10, NForecast = 52)
-fore_wnnar = as.data.frame(fit_wnnar$Finalforecast, h = 52)
-forecast::accuracy(fore_wnnar$`fit_wnnar$Finalforecast`, con_tst)
-smape(con_tst, fore_wnnar$`fit_wnnar$Finalforecast`)*100
-mase(con_tst, fore_wnnar$`fit_wnnar$Finalforecast`)
+fore_warnn = as.data.frame(fit_warnn$Finalforecast, h = 52)
+forecast::accuracy(fore_warnn$`fit_warnn$Finalforecast`, con_tst)
+smape(con_tst, fore_warnn$`fit_warnn$Finalforecast`)*100
+mase(con_tst, fore_warnn$`fit_warnn$Finalforecast`)
 
 ####################### Proposed WARNNX ##########################
 
-source("wavelet_nar.R")
-fit_wnnarx = WaveletFittingnar(ts(con_tr), Waveletlevels = floor(log(length(con_tr))), 
+source("warnnx.R")
+fit_warnnx = WaveletFittingnar(ts(con_tr), Waveletlevels = floor(log(length(con_tr))), 
              boundary = "periodic", FastFlag = TRUE, MaxARParam = 10, NForecast = 52)
-fore_wnnarx = as.data.frame(fit_wnnarx$Finalforecast, h = 52)
-forecast::accuracy(fore_wnnarx$`fit_wnnarx$Finalforecast`, con_tst)
-smape(con_tst, fore_wnnarx$`fit_wnnarx$Finalforecast`)*100
-mase(con_tst, fore_wnnarx$`fit_wnnarx$Finalforecast`)
+fore_warnnx = as.data.frame(fit_warnnx$Finalforecast, h = 52)
+forecast::accuracy(fore_warnnx$`fit_warnnx$Finalforecast`, con_tst)
+smape(con_tst, fore_warnnx$`fit_warnnx$Finalforecast`)*100
+mase(con_tst, fore_warnnx$`fit_warnnx$Finalforecast`)
 
